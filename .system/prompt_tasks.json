@@ -1,0 +1,46 @@
+{
+  "active_task_id": 5,
+  "tasks": [
+    {
+      "id": 1,
+      "milestone_id": 1,
+      "objective": "Implement functionality to list network interfaces and display routing table information.",
+      "status": "completed",
+      "task_id": 1,
+      "title": "Implement Interface and Route Discovery"
+    },
+    {
+      "id": 2,
+      "milestone_id": 2,
+      "objective": "Implement functionality to retrieve and display public and current IP addresses.",
+      "status": "completed",
+      "task_id": 1,
+      "title": "Implement IP Address Retrieval"
+    },
+    {
+      "id": 3,
+      "milestone_id": 3,
+      "objective": "Implement functionality to gather and display DNS resolution information.",
+      "status": "completed",
+      "task_id": 1,
+      "title": "Implement DNS Information Gathering"
+    },
+    {
+      "id": 4,
+      "milestone_id": 4,
+      "objective": "Implement the `-a` flag to display all network information in a single command.",
+      "status": "completed",
+      "task_id": 1,
+      "title": "Implement Comprehensive Information Display"
+    },
+    {
+      "id": 5,
+      "milestone_id": 5,
+      "objective": "Implement robust error handling and display help information for unrecognized commands.",
+      "status": "active",
+      "task_id": 1,
+      "title": "Error Handling and Help Information"
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,20 @@
+{
+  "milestone_id": 1,
+  "tasks": [
+    {
+      "depends_on": [],
+      "done_when": "Verify that running `netdata -i` lists interfaces and `netdata -r` displays routes.",
+      "files_allowed": null,
+      "forge_actions": [],
+      "forge_validation": [],
+      "id": 1,
+      "milestone_context": "title: Milestone 1: Implement Interface and Route Discovery\nobjective: Implement functionality to list network interfaces and display routing table information.\nscope: Implement under `pkg/interfaces/interfaces.go` and `pkg/routes/routes.go` with integration in `cmd/netdata/main.go`.\nvalidation: Verify that running `netdata -i` lists interfaces and `netdata -r` displays routes.",
+      "objective": "Implement functionality to list network interfaces and display routing table information.",
+      "status": "not_started",
+      "summary": "Implement under `pkg/interfaces/interfaces.go` and `pkg/routes/routes.go` with integration in `cmd/netdata/main.go`.",
+      "title": "Implement Interface and Route Discovery",
+      "validation": "Verify that running `netdata -i` lists interfaces and `netdata -r` displays routes."
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,20 @@
+{
+  "milestone_id": 4,
+  "tasks": [
+    {
+      "depends_on": [],
+      "done_when": "Verify that running `netdata -a` displays interfaces, routes, IPs, and DNS info.",
+      "files_allowed": null,
+      "forge_actions": [],
+      "forge_validation": [],
+      "id": 1,
+      "milestone_context": "title: Milestone 4: Implement Comprehensive Information Display\nobjective: Implement the `-a` flag to display all network information in a single command.\nscope: Integrate all functionalities in `cmd/netdata/main.go` to support the `-a` flag.\nvalidation: Verify that running `netdata -a` displays interfaces, routes, IPs, and DNS info.",
+      "objective": "Implement the `-a` flag to display all network information in a single command.",
+      "status": "not_started",
+      "summary": "Integrate all functionalities in `cmd/netdata/main.go` to support the `-a` flag.",
+      "title": "Implement Comprehensive Information Display",
+      "validation": "Verify that running `netdata -a` displays interfaces, routes, IPs, and DNS info."
+    }
+  ],
+  "version": 1
+}

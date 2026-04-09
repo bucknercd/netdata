@@ -1,0 +1,20 @@
+{
+  "milestone_id": 2,
+  "tasks": [
+    {
+      "depends_on": [],
+      "done_when": "Verify that running `netdata -p` shows the public IP and `netdata -c` shows current IPs.",
+      "files_allowed": null,
+      "forge_actions": [],
+      "forge_validation": [],
+      "id": 1,
+      "milestone_context": "title: Milestone 2: Implement IP Address Retrieval\nobjective: Implement functionality to retrieve and display public and current IP addresses.\nscope: Implement under `pkg/ip/ip.go` with integration in `cmd/netdata/main.go`.\nvalidation: Verify that running `netdata -p` shows the public IP and `netdata -c` shows current IPs.",
+      "objective": "Implement functionality to retrieve and display public and current IP addresses.",
+      "status": "not_started",
+      "summary": "Implement under `pkg/ip/ip.go` with integration in `cmd/netdata/main.go`.",
+      "title": "Implement IP Address Retrieval",
+      "validation": "Verify that running `netdata -p` shows the public IP and `netdata -c` shows current IPs."
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,11 @@
+{
+  "command": "vertical-slice",
+  "demo": false,
+  "fixed_vision_provided": true,
+  "idea_provided": false,
+  "input_mode": "vision_file",
+  "json_mode": false,
+  "milestone_id": 1,
+  "run_id": "5655da7cd713",
+  "verbose": false
+}

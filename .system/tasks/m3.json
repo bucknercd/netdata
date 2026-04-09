@@ -1,0 +1,20 @@
+{
+  "milestone_id": 3,
+  "tasks": [
+    {
+      "depends_on": [],
+      "done_when": "Verify that running `netdata -d` displays DNS information.",
+      "files_allowed": null,
+      "forge_actions": [],
+      "forge_validation": [],
+      "id": 1,
+      "milestone_context": "title: Milestone 3: Implement DNS Information Gathering\nobjective: Implement functionality to gather and display DNS resolution information.\nscope: Implement under `pkg/dns/dns.go` with integration in `cmd/netdata/main.go`.\nvalidation: Verify that running `netdata -d` displays DNS information.",
+      "objective": "Implement functionality to gather and display DNS resolution information.",
+      "status": "not_started",
+      "summary": "Implement under `pkg/dns/dns.go` with integration in `cmd/netdata/main.go`.",
+      "title": "Implement DNS Information Gathering",
+      "validation": "Verify that running `netdata -d` displays DNS information."
+    }
+  ],
+  "version": 1
+}

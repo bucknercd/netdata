@@ -1,0 +1,3 @@
+{"data": {"command": "vertical-slice", "demo": false, "fixed_vision": true, "has_idea": false, "input_mode": "vision_file", "milestone_id": 1}, "run_id": "5655da7cd713", "ts": "2026-04-09T18:55:16.608768+00:00", "type": "run_started"}
+{"data": {"phase": "materialize_docs", "reason": "Vertical slice LLM docs (--idea, --vision-file, --from-vision) require planner.llm_client in forge-policy.json (e.g. 'openai' with API key, or 'stub' for offline testing)."}, "run_id": "5655da7cd713", "ts": "2026-04-09T18:55:16.608943+00:00", "type": "run_failed"}
+{"data": {"ok": false}, "run_id": "5655da7cd713", "ts": "2026-04-09T18:55:16.609022+00:00", "type": "run_completed"}

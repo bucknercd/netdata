@@ -1,0 +1,12 @@
+{"data": {"command": "vertical-slice", "demo": false, "fixed_vision": true, "has_idea": false, "input_mode": "vision_file", "milestone_id": 1}, "run_id": "13411a5c0579", "ts": "2026-04-09T18:55:46.159884+00:00", "type": "run_started"}
+{"data": {"label": "generate requirements, architecture, milestones from vision file", "phase": "llm_generation"}, "run_id": "13411a5c0579", "ts": "2026-04-09T18:55:46.160098+00:00", "type": "phase_started"}
+{"data": {"ok": true, "phase": "llm_generation"}, "run_id": "13411a5c0579", "ts": "2026-04-09T18:56:10.414713+00:00", "type": "phase_completed"}
+{"data": {"label": "write vision, requirements, architecture, milestones", "phase": "materialize_docs"}, "run_id": "13411a5c0579", "ts": "2026-04-09T18:56:10.414814+00:00", "type": "phase_started"}
+{"data": {"kind": "vision", "path": "docs/vision.txt"}, "run_id": "13411a5c0579", "ts": "2026-04-09T18:56:10.415388+00:00", "type": "artifact_written"}
+{"data": {"kind": "requirements", "path": "docs/requirements.md"}, "run_id": "13411a5c0579", "ts": "2026-04-09T18:56:10.415687+00:00", "type": "artifact_written"}
+{"data": {"kind": "architecture", "path": "docs/architecture.md"}, "run_id": "13411a5c0579", "ts": "2026-04-09T18:56:10.415955+00:00", "type": "artifact_written"}
+{"data": {"kind": "milestones", "path": "docs/milestones.md"}, "run_id": "13411a5c0579", "ts": "2026-04-09T18:56:10.416212+00:00", "type": "artifact_written"}
+{"data": {"ok": true, "phase": "materialize_docs"}, "run_id": "13411a5c0579", "ts": "2026-04-09T18:56:10.416433+00:00", "type": "phase_completed"}
+{"data": {"label": "ensure tasks, preview next task, save reviewed plan", "phase": "plan"}, "run_id": "13411a5c0579", "ts": "2026-04-09T18:56:10.416568+00:00", "type": "phase_started"}
+{"data": {"message": "Task preparation complete (stopped before apply).", "ok": true, "phase": "plan"}, "run_id": "13411a5c0579", "ts": "2026-04-09T18:56:17.223161+00:00", "type": "phase_completed"}
+{"data": {"ok": true}, "run_id": "13411a5c0579", "ts": "2026-04-09T18:56:17.223254+00:00", "type": "run_completed"}

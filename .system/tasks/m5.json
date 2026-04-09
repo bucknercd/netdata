@@ -1,0 +1,20 @@
+{
+  "milestone_id": 5,
+  "tasks": [
+    {
+      "depends_on": [],
+      "done_when": "Verify that incorrect commands result in helpful error messages and that `netdata --help` displays usage information.",
+      "files_allowed": null,
+      "forge_actions": [],
+      "forge_validation": [],
+      "id": 1,
+      "milestone_context": "title: Milestone 5: Error Handling and Help Information\nobjective: Implement robust error handling and display help information for unrecognized commands.\nscope: Enhance `cmd/netdata/main.go` to handle errors and provide user guidance.\nvalidation: Verify that incorrect commands result in helpful error messages and that `netdata --help` displays usage information.",
+      "objective": "Implement robust error handling and display help information for unrecognized commands.",
+      "status": "not_started",
+      "summary": "Enhance `cmd/netdata/main.go` to handle errors and provide user guidance.",
+      "title": "Error Handling and Help Information",
+      "validation": "Verify that incorrect commands result in helpful error messages and that `netdata --help` displays usage information."
+    }
+  ],
+  "version": 1
+}

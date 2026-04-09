@@ -1,0 +1,10 @@
+{
+  "planner": {
+    "mode": "llm",
+    "llm_client": "openai",
+    "llm_model": "gpt-4o"
+  },
+  "task_execution": {
+    "max_repair_attempts": 3
+  }
+}

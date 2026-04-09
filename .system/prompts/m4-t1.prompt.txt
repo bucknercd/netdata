@@ -1,0 +1,44 @@
+You are implementing one Forge task in a spec-driven workflow.
+
+## Read First
+From this repository, read before editing:
+- docs/vision.txt
+- docs/requirements.md
+- docs/architecture.md
+
+## Milestone Context
+- Milestone ID: 4
+- Milestone title: Milestone 4: Implement Comprehensive Information Display
+- Milestone objective: Implement the `-a` flag to display all network information in a single command.
+- Milestone scope: Integrate all functionalities in `cmd/netdata/main.go` to support the `-a` flag.
+- Milestone validation: Verify that running `netdata -a` displays interfaces, routes, IPs, and DNS info.
+
+## Selected Task
+- Task ID: 1
+- Task title: Implement Comprehensive Information Display
+- Task objective: Implement the `-a` flag to display all network information in a single command.
+- Task summary: Integrate all functionalities in `cmd/netdata/main.go` to support the `-a` flag.
+- Depends on: None
+- Status in task file: not_started
+- Validation criteria: Verify that running `netdata -a` displays interfaces, routes, IPs, and DNS info.
+- Done criteria: Verify that running `netdata -a` displays interfaces, routes, IPs, and DNS info.
+
+## Implementation Constraints
+- Solve only the task described above.
+- Keep the blast radius small.
+- Prefer editing existing files over adding new ones.
+- Do not introduce new abstractions unless required by this task.
+- Do not refactor unrelated code or do incidental cleanup outside this task.
+- Do not redesign the architecture.
+- Avoid speculative future-proofing.
+- Preserve existing naming and structure unless this task explicitly requires otherwise.
+- Add only the minimum tests needed for the changed behavior.
+- Stop once the task requirements are satisfied.
+
+## Forge Workflow
+- Do not mutate Forge workflow state files directly.
+- Forge remains the source of truth for workflow state transitions.
+- Task completion is explicit in Forge; do not assume completion.
+
+## Return
+Return a concise summary of changes, tests run, and any assumptions.

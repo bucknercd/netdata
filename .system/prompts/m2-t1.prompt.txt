@@ -1,0 +1,44 @@
+You are implementing one Forge task in a spec-driven workflow.
+
+## Read First
+From this repository, read before editing:
+- docs/vision.txt
+- docs/requirements.md
+- docs/architecture.md
+
+## Milestone Context
+- Milestone ID: 2
+- Milestone title: Milestone 2: Implement IP Address Retrieval
+- Milestone objective: Implement functionality to retrieve and display public and current IP addresses.
+- Milestone scope: Implement under `pkg/ip/ip.go` with integration in `cmd/netdata/main.go`.
+- Milestone validation: Verify that running `netdata -p` shows the public IP and `netdata -c` shows current IPs.
+
+## Selected Task
+- Task ID: 1
+- Task title: Implement IP Address Retrieval
+- Task objective: Implement functionality to retrieve and display public and current IP addresses.
+- Task summary: Implement under `pkg/ip/ip.go` with integration in `cmd/netdata/main.go`.
+- Depends on: None
+- Status in task file: not_started
+- Validation criteria: Verify that running `netdata -p` shows the public IP and `netdata -c` shows current IPs.
+- Done criteria: Verify that running `netdata -p` shows the public IP and `netdata -c` shows current IPs.
+
+## Implementation Constraints
+- Solve only the task described above.
+- Keep the blast radius small.
+- Prefer editing existing files over adding new ones.
+- Do not introduce new abstractions unless required by this task.
+- Do not refactor unrelated code or do incidental cleanup outside this task.
+- Do not redesign the architecture.
+- Avoid speculative future-proofing.
+- Preserve existing naming and structure unless this task explicitly requires otherwise.
+- Add only the minimum tests needed for the changed behavior.
+- Stop once the task requirements are satisfied.
+
+## Forge Workflow
+- Do not mutate Forge workflow state files directly.
+- Forge remains the source of truth for workflow state transitions.
+- Task completion is explicit in Forge; do not assume completion.
+
+## Return
+Return a concise summary of changes, tests run, and any assumptions.

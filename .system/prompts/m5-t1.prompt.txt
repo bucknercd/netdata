@@ -1,0 +1,44 @@
+You are implementing one Forge task in a spec-driven workflow.
+
+## Read First
+From this repository, read before editing:
+- docs/vision.txt
+- docs/requirements.md
+- docs/architecture.md
+
+## Milestone Context
+- Milestone ID: 5
+- Milestone title: Milestone 5: Error Handling and Help Information
+- Milestone objective: Implement robust error handling and display help information for unrecognized commands.
+- Milestone scope: Enhance `cmd/netdata/main.go` to handle errors and provide user guidance.
+- Milestone validation: Verify that incorrect commands result in helpful error messages and that `netdata --help` displays usage information.
+
+## Selected Task
+- Task ID: 1
+- Task title: Error Handling and Help Information
+- Task objective: Implement robust error handling and display help information for unrecognized commands.
+- Task summary: Enhance `cmd/netdata/main.go` to handle errors and provide user guidance.
+- Depends on: None
+- Status in task file: not_started
+- Validation criteria: Verify that incorrect commands result in helpful error messages and that `netdata --help` displays usage information.
+- Done criteria: Verify that incorrect commands result in helpful error messages and that `netdata --help` displays usage information.
+
+## Implementation Constraints
+- Solve only the task described above.
+- Keep the blast radius small.
+- Prefer editing existing files over adding new ones.
+- Do not introduce new abstractions unless required by this task.
+- Do not refactor unrelated code or do incidental cleanup outside this task.
+- Do not redesign the architecture.
+- Avoid speculative future-proofing.
+- Preserve existing naming and structure unless this task explicitly requires otherwise.
+- Add only the minimum tests needed for the changed behavior.
+- Stop once the task requirements are satisfied.
+
+## Forge Workflow
+- Do not mutate Forge workflow state files directly.
+- Forge remains the source of truth for workflow state transitions.
+- Task completion is explicit in Forge; do not assume completion.
+
+## Return
+Return a concise summary of changes, tests run, and any assumptions.

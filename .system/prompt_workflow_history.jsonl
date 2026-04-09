@@ -1,0 +1,5 @@
+{"event": "task_completed", "milestone_id": 1, "source": "forge_cli", "status_after": "completed", "status_before": "active", "task_id": 1, "ts": "2026-04-09T19:14:46.574018+00:00"}
+{"event": "task_completed", "milestone_id": 1, "source": "forge_cli", "status_after": "completed", "status_before": "completed", "task_id": 1, "ts": "2026-04-09T19:57:30.978564+00:00"}
+{"event": "task_completed", "milestone_id": 2, "source": "forge_cli", "status_after": "completed", "status_before": "active", "task_id": 2, "ts": "2026-04-09T20:31:56.371432+00:00"}
+{"event": "task_completed", "milestone_id": 3, "source": "forge_cli", "status_after": "completed", "status_before": "active", "task_id": 3, "ts": "2026-04-09T20:56:28.767438+00:00"}
+{"event": "task_completed", "milestone_id": 4, "source": "forge_cli", "status_after": "completed", "status_before": "active", "task_id": 4, "ts": "2026-04-09T21:05:00.460705+00:00"}
