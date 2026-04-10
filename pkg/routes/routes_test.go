@@ -61,3 +61,23 @@ func TestFormatRTFFlags(t *testing.T) {
 		t.Fatalf("0001 got %q want U", got)
 	}
 }
+
+func TestPrimaryIPv4DefaultRouteFromRoutes(t *testing.T) {
+	list := []Route{
+		{Iface: "eth0", Destination: "0.0.0.0", Mask: "0.0.0.0", Gateway: "10.0.0.2", Metric: "200"},
+		{Iface: "wlan0", Destination: "0.0.0.0", Mask: "0.0.0.0", Gateway: "192.168.1.1", Metric: "100"},
+	}
+	got, err := primaryIPv4DefaultRouteFromRoutes(list)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got.Gateway != "192.168.1.1" || got.Iface != "wlan0" || got.Metric != 100 {
+		t.Fatalf("got %+v", got)
+	}
+	_, err = primaryIPv4DefaultRouteFromRoutes([]Route{
+		{Destination: "10.0.0.0", Mask: "255.0.0.0", Gateway: "0.0.0.0", Metric: "0"},
+	})
+	if err != ErrNoIPv4DefaultRoute {
+		t.Fatalf("got err %v want ErrNoIPv4DefaultRoute", err)
+	}
+}

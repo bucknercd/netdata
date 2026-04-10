@@ -2,6 +2,7 @@
 package ip
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"net"
@@ -9,6 +10,13 @@ import (
 	"strings"
 	"time"
 )
+
+const publicIPEndpoint = "https://api.ipify.org"
+
+// PublicIPEndpoint is the HTTPS URL used by [Public] and connectivity checks.
+func PublicIPEndpoint() string {
+	return publicIPEndpoint
+}
 
 // InterfaceAddrs holds the unicast addresses assigned to one interface.
 type InterfaceAddrs struct {
@@ -18,13 +26,46 @@ type InterfaceAddrs struct {
 
 // Public fetches this host's public IPv4/IPv6 address seen on the internet
 // using an HTTPS request (default: api.ipify.org). Requires outbound HTTPS.
+// It fails fast (about 5s worst case) so the CLI stays usable when offline.
 func Public() (string, error) {
-	client := &http.Client{Timeout: 15 * time.Second}
-	return fetchPublic(client, "https://api.ipify.org")
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	return PublicWithContext(ctx)
+}
+
+// PublicWithContext is like [Public] but honors ctx for the whole request
+// (DNS, dial, TLS, headers, body). Use a deadline to cap wait time.
+func PublicWithContext(ctx context.Context) (string, error) {
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, publicIPEndpoint, nil)
+	if err != nil {
+		return "", fmt.Errorf("public ip: request: %w", err)
+	}
+	return fetchPublicWithRequest(newPublicIPHTTPClient(), req)
+}
+
+func newPublicIPHTTPClient() *http.Client {
+	// Per-phase caps so resolver/dial cannot stall far beyond the context deadline.
+	return &http.Client{
+		Transport: &http.Transport{
+			DialContext: (&net.Dialer{
+				Timeout: 4 * time.Second,
+			}).DialContext,
+			TLSHandshakeTimeout:   4 * time.Second,
+			ResponseHeaderTimeout: 4 * time.Second,
+		},
+	}
 }
 
 func fetchPublic(client *http.Client, url string) (string, error) {
-	resp, err := client.Get(url)
+	req, err := http.NewRequest(http.MethodGet, url, nil)
+	if err != nil {
+		return "", fmt.Errorf("public ip: request: %w", err)
+	}
+	return fetchPublicWithRequest(client, req)
+}
+
+func fetchPublicWithRequest(client *http.Client, req *http.Request) (string, error) {
+	resp, err := client.Do(req)
 	if err != nil {
 		return "", fmt.Errorf("public ip: request: %w", err)
 	}

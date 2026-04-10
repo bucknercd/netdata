@@ -2,11 +2,14 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"io"
 	"os"
+	"time"
 
+	"forge/tmp/nettest/pkg/connectivity"
 	"forge/tmp/nettest/pkg/dns"
 	"forge/tmp/nettest/pkg/interfaces"
 	"forge/tmp/nettest/pkg/ip"
@@ -24,8 +27,8 @@ func main() {
 	flag.BoolVar(&showIfaces, "interfaces", false, "list all network interfaces")
 	flag.BoolVar(&showRoutes, "r", false, "display routing table")
 	flag.BoolVar(&showRoutes, "routes", false, "display routing table")
-	flag.BoolVar(&showPublic, "p", false, "show public IP address")
-	flag.BoolVar(&showPublic, "public-ip", false, "show public IP address")
+	flag.BoolVar(&showPublic, "p", false, "public IP and quick connectivity probes (routing / DNS / HTTPS)")
+	flag.BoolVar(&showPublic, "public-ip", false, "public IP and quick connectivity probes (routing / DNS / HTTPS)")
 	flag.BoolVar(&showCurrent, "c", false, "show current IP address of each interface")
 	flag.BoolVar(&showCurrent, "current-ip", false, "show current IP address of each interface")
 	flag.BoolVar(&showDNS, "d", false, "display DNS resolution information")
@@ -89,10 +92,7 @@ func main() {
 		if sep {
 			fmt.Println()
 		}
-		if err := printPublicIP(); err != nil {
-			fmt.Fprintf(os.Stderr, "public ip: %v\n", err)
-			os.Exit(1)
-		}
+		printPublicIP()
 		sep = true
 	}
 	if showCurrent {
@@ -156,14 +156,65 @@ func printRoutes() error {
 	return nil
 }
 
-func printPublicIP() error {
-	addr, err := ip.Public()
-	if err != nil {
-		return err
+func printPublicIP() {
+	budget := connectivity.OverallTimeout() + 750*time.Millisecond
+	ctx, cancel := context.WithTimeout(context.Background(), budget)
+	defer cancel()
+	rep := connectivity.Run(ctx)
+
+	fmt.Println("Public IP / connectivity (parallel probes, ~5s max)")
+	if !rep.Gateway.Attempted {
+		msg := rep.Gateway.Detail
+		if rep.Gateway.Iface != "" {
+			msg = fmt.Sprintf("%s [iface %s]", msg, rep.Gateway.Iface)
+		}
+		fmt.Printf("  Default gateway: skipped — %s\n", msg)
+	} else {
+		fmt.Printf("  Default gateway %s (%s), TCP 80/443/53: ", rep.Gateway.Address, rep.Gateway.Iface)
+		if rep.Gateway.OK {
+			fmt.Printf("ok — %s\n", rep.Gateway.Detail)
+		} else {
+			fmt.Printf("failed — %s\n", rep.Gateway.Detail)
+		}
 	}
-	fmt.Println("Public IP")
-	fmt.Printf("  %s\n", addr)
-	return nil
+	if !rep.GatewayICMP.Attempted {
+		fmt.Printf("  ICMP default gateway: skipped — %s\n", rep.GatewayICMP.Detail)
+	} else {
+		fmt.Printf("  ICMP default gateway (%s): ", rep.GatewayICMP.Target)
+		if rep.GatewayICMP.OK {
+			fmt.Printf("ok — %s\n", rep.GatewayICMP.Detail)
+		} else {
+			fmt.Printf("failed — %s\n", rep.GatewayICMP.Detail)
+		}
+	}
+	fmt.Printf("  ICMP %s: ", connectivity.ICMPPublicAddr())
+	if rep.PublicICMP.OK {
+		fmt.Printf("ok — %s\n", rep.PublicICMP.Detail)
+	} else {
+		fmt.Printf("failed — %s\n", rep.PublicICMP.Detail)
+	}
+	if rep.GatewayICMP.NoSocket || rep.PublicICMP.NoSocket {
+		fmt.Println("  ICMP sockets unavailable: allow unprivileged ping (Linux: sysctl net.ipv4.ping_group_range), grant CAP_NET_RAW (e.g. setcap cap_net_raw=+ep on this binary), or run with sudo if you need ICMP results from this tool.")
+	}
+	fmt.Printf("  TCP %s (no DNS): ", connectivity.TCPProbeAddr())
+	if rep.TCPNoDNS.OK {
+		fmt.Printf("ok (%s)\n", rep.TCPNoDNS.Detail)
+	} else {
+		fmt.Printf("failed — %s\n", rep.TCPNoDNS.Detail)
+	}
+	fmt.Printf("  DNS %s: ", connectivity.DNSProbeName())
+	if rep.DNS.OK {
+		fmt.Printf("ok — %s\n", rep.DNS.Detail)
+	} else {
+		fmt.Printf("failed — %s\n", rep.DNS.Detail)
+	}
+	fmt.Printf("  HTTPS public IP (%s): ", ip.PublicIPEndpoint())
+	if rep.HTTPS.OK && rep.PublicIP != "" {
+		fmt.Printf("ok — %s\n", rep.PublicIP)
+	} else {
+		fmt.Printf("failed — %s\n", rep.HTTPS.Detail)
+	}
+	fmt.Printf("\n  Summary: %s\n", connectivity.Summary(rep))
 }
 
 func printCurrentIPs() error {

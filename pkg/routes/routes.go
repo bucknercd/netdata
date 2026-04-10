@@ -3,10 +3,12 @@ package routes
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"net"
 	"os"
 	"runtime"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -100,6 +102,52 @@ func parseProcNetRoute(content string) ([]Route, error) {
 		return nil, err
 	}
 	return routes, nil
+}
+
+// ErrNoIPv4DefaultRoute means no 0.0.0.0/0 entry appeared in the IPv4 table.
+var ErrNoIPv4DefaultRoute = errors.New("routes: no IPv4 default route")
+
+// IPv4DefaultRoute is the preferred IPv4 default route (lowest metric).
+type IPv4DefaultRoute struct {
+	Gateway string
+	Iface   string
+	Metric  int
+}
+
+// PrimaryIPv4DefaultRoute returns the IPv4 default route with the smallest metric.
+// On Linux this uses the same data as [List] (/proc/net/route). If several
+// defaults exist, the one with the lowest metric wins; ties keep kernel order.
+// Gateway may be 0.0.0.0 for an on-link default (no next-hop IP in the table).
+func PrimaryIPv4DefaultRoute() (IPv4DefaultRoute, error) {
+	list, err := List()
+	if err != nil {
+		return IPv4DefaultRoute{}, err
+	}
+	return primaryIPv4DefaultRouteFromRoutes(list)
+}
+
+func primaryIPv4DefaultRouteFromRoutes(list []Route) (IPv4DefaultRoute, error) {
+	var defs []Route
+	for _, r := range list {
+		if r.Destination == "0.0.0.0" && r.Mask == "0.0.0.0" {
+			defs = append(defs, r)
+		}
+	}
+	if len(defs) == 0 {
+		return IPv4DefaultRoute{}, ErrNoIPv4DefaultRoute
+	}
+	sort.SliceStable(defs, func(i, j int) bool {
+		mi, _ := strconv.Atoi(defs[i].Metric)
+		mj, _ := strconv.Atoi(defs[j].Metric)
+		return mi < mj
+	})
+	best := defs[0]
+	metric, _ := strconv.Atoi(best.Metric)
+	return IPv4DefaultRoute{
+		Gateway: best.Gateway,
+		Iface:   best.Iface,
+		Metric:  metric,
+	}, nil
 }
 
 // FormatDestination returns a net-tools style destination: "default" for the
